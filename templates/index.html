@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>英译德</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"
+            integrity="sha512-3gJwYpMe3QewGELv8k/BX9vcqhryRdzRMxVfq6ngyWXwo03GFEzjsUm8Q7RZcHPHksttq7/GFoxjCVUjkjvPdw=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <!-- 导入Bootstrap UI库 -->
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container my-5">
+    <h1 class="text-center mb-5">英译德</h1>
+    <div class="row">
+        <div class="col-md-6">
+            <h2>英文</h2>
+            <textarea id="input" class="form-control" rows="8"></textarea>
+        </div>
+        <div class="col-md-6">
+            <h2>德文</h2>
+            <div id="output" class="border p-2" style="height: 202px;"></div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4 offset-md-4">
+            <button id="translate-btn" style="width:100%" class="btn btn-primary mt-3">翻译</button>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+      $('#translate-btn').click(function () {
+        $("#translate-btn").prop("disabled", true);
+        let inputText = $('#input').val();
+        if (inputText !== '') {
+                      $.post("/translate",{src_text:inputText},
+                        function(data) {
+                        $('#output').text(data)
+                        $("#translate-btn").prop("disabled", false);
+                         })
+            };
+        })
+      });
+
+</script>
+</body>
+</html>
